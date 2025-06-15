@@ -40,10 +40,12 @@
                     </ul>
                  </li>
                 @endcan
-
-
-
-
+                <li class="nav-item">
+                    <a href="{{ route('admin.apis.index') }}" target="frameprincipal" class="nav-link">
+                        <i class="fas fa-code"></i>
+                        <p>APIs</p>
+                    </a>
+                </li>
             </ul>
         </nav>
 
