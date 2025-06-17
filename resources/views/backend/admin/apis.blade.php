@@ -212,13 +212,56 @@
 
         <!-- Sección de Video (reservada para futuras implementaciones) -->
         <div class="card">
-            <div class="card-body">
-                <h3 class="section-title">
-                    <i class="fas fa-video"></i> Video
-                </h3>
-                <p>Agregar aquí implementación de Video.</p>
+    <div class="card-body">
+        <h3 class="section-title">
+            <i class="fas fa-video"></i> Video
+        </h3>
+        <div>
+            <div class="container text-center">
+                <video id="videoPlayer" width="480" class="mb-3 border rounded">
+                    <source src="{{ asset('media/Sonic%20Mania%20Opening%20Animation.mp4') }}" type="video/mp4">
+                    Tu navegador no soporta la etiqueta <code>video</code>.
+                </video>
+
+                <!-- Controles -->
+                <div class="mb-3">
+                <button class="btn btn-warning me-2" onclick="video.currentTime -= 10"><< 10s</button>
+                <button class="btn btn-success me-2" onclick="video.play()">&#9658;</button>
+                    <button class="btn btn-danger me-2" onclick="video.pause()">| |</button>
+
+                    <button class="btn btn-warning me-2" onclick="video.currentTime += 10">10s >></button>
+                </div>
+
+                <!-- Tiempo actual / duración -->
+                <div class="mb-3">
+                    <span id="tiempoActual">0:00</span> / <span id="duracion">0:00</span>
+                </div>
+
+                <!-- Velocidad de reproducción -->
+                <div class="mb-3">
+                    <div>
+                        <small>(Para que las funciones de adelantar y retroceder funcionen correctamente el video debe haber cargado en su totalidad)</small>
+                    </div>
+                     <br>
+                    <label for="velocidad" class="form-label">Velocidad:</label>
+                    <select id="velocidad" class="form-select w-auto d-inline" onchange="video.playbackRate = this.value">
+                        <option value="0.5">0.5x</option>
+                        <option value="1" selected>1x (Normal)</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+
+                <!-- Control de volumen -->
+                <div class="mb-3">
+                    <label for="volumen" class="form-label">Volumen:</label>
+                    <input type="range" id="volumen" min="0" max="1" step="0.01" value="1" class="form-range w-50"
+                        onchange="video.volume = this.value">
+                </div>
             </div>
         </div>
+    </div>
+</div>
         <!-- seccion del web worker -->
         <div class="card">
             <div class="card-body">
@@ -398,6 +441,30 @@
         const textoResultado = document.getElementById("resultado")
 
     </script>
+
+<script>
+const video = document.getElementById("videoPlayer");
+window.video = video; // Hacerlo accesible desde HTML inline
+    const tiempoActual = document.getElementById("tiempoActual");
+    const duracion = document.getElementById("duracion");
+
+    // Formatear segundos a mm:ss
+    function formatoTiempo(segundos) {
+        const m = Math.floor(segundos / 60);
+        const s = Math.floor(segundos % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+    // Mostrar duración una vez que el video esté cargado
+    video.addEventListener("loadedmetadata", () => {
+        duracion.textContent = formatoTiempo(video.duration);
+    });
+
+    // Actualizar el tiempo actual cada segundo
+    video.addEventListener("timeupdate", () => {
+        tiempoActual.textContent = formatoTiempo(video.currentTime);
+    });
+</script>
 
 </body>
 
