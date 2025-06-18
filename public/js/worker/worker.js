@@ -2,7 +2,7 @@
 
 self.onmessage = ((e) =>{
   if(e.data == "Empezar"){
-  const resultado = findAllPrimes(3000)
+  const resultado = findAllPrimes(5000000)
   self.postMessage(resultado)
   }
 })
