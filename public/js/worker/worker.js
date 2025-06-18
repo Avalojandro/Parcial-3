@@ -1,6 +1,13 @@
 
 
-const isPrime = (num) => {
+self.onmessage = ((e) =>{
+  if(e.data == "Empezar"){
+  const resultado = findAllPrimes(3000)
+  self.postMessage(resultado)
+  }
+})
+
+const isPrime = ((num) => {
   if (num <= 1) {
     return false;
   }
@@ -10,15 +17,16 @@ const isPrime = (num) => {
     }
   }
   return true;
-}
+})
 
 
-const findAllPrimes = (limit) => {
+const findAllPrimes = ((limit) => {
+  let re = ""
     for(let i = 0; i < limit; i++){
         if(isPrime(i)){
-            console.log(i)
+      re += i.toString()+", "
+
         }
     }
-}
-
-findAllPrimes(3000000)
+  return re
+})
