@@ -439,6 +439,36 @@
 
         const botonIniciar = document.getElementById("botonIniciar")
         const textoResultado = document.getElementById("resultado")
+        console.log(botonIniciar.textContent);
+
+
+
+        if (window.Worker) {
+
+            console.log("inside if");
+
+            const miWorker = new Worker("/js/worker/worker.js")
+            botonIniciar.addEventListener('click', () => {
+                console.log("iniciando");
+
+                alert("iniciando calculo")
+                botonIniciar.disabled = true
+                botonIniciar.textContent = "..."
+                miWorker.postMessage("Empezar")
+            })
+
+            miWorker.onmessage = (e) => {
+                textoResultado.textContent = e.data;
+
+                botonIniciar.textContent = "Iniciar calculo"
+
+                botonIniciar.disabled = false;
+            };
+
+        } else {
+            console.log("not supported");
+
+        }
 
     </script>
 
