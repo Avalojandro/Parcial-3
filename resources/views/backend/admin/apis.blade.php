@@ -266,16 +266,6 @@
                 </div>
             </div>
         </div>
-        <!-- seccion del web worker -->
-        <div class="card">
-            <div class="card-body">
-                <h3 class="section-title">
-                    <i class="fas fa-video"></i> Web Worker
-                </h3>
-                <button id="botonIniciar" class="btn btn-primary">Iniciar calculo</button>
-                <textarea class="card form-control mr-4 mt-2" id="resultado"></textarea>
-            </div>
-        </div>
     </div>
 
 
@@ -436,41 +426,6 @@
                 document.getElementById('brushSizeValue').textContent = brushSize;
             });
         });
-    </script>
-
-    <!-- script para el web worker -->
-    <script>
-
-        const botonIniciar = document.getElementById("botonIniciar")
-        const textoResultado = document.getElementById("resultado")
-        console.log(botonIniciar.textContent);
-
-
-
-        if (window.Worker) {
-
-            console.log("inside if");
-
-            const miWorker = new Worker("/js/worker/worker.js")
-            botonIniciar.addEventListener('click', () => {
-                botonIniciar.disabled = true
-                botonIniciar.textContent = "Calculando..."
-                miWorker.postMessage("Empezar")
-            })
-
-            miWorker.onmessage = (e) => {
-                textoResultado.textContent = e.data;
-
-                botonIniciar.textContent = "Iniciar calculo"
-
-                botonIniciar.disabled = false;
-            };
-
-        } else {
-            alert("Tu navegador no soporta Web Workers");
-
-        }
-
     </script>
 
     <script>
